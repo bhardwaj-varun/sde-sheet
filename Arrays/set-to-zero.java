@@ -1,3 +1,4 @@
+//https://takeuforward.org/data-structure/set-matrix-zero/
 //https://www.codingninjas.com/studio/problems/zero-matrix_1171153
 
 import java.util.*;
@@ -6,9 +7,36 @@ import java.io.*;
 public class Solution {
     public static ArrayList<ArrayList<Integer>> zeroMatrix(ArrayList<ArrayList<Integer>> matrix, Integer n, Integer m) {
         
-        return bruteForce(matrix, n, m);
+        
+        //return bruteForce(matrix, n, m);
+        return betterApproach(matrix,n, m);
     }
 
+    public static ArrayList<ArrayList<Integer>> betterApproach(ArrayList<ArrayList<Integer>> matrix, Integer n, Integer m) {
+
+        int[] row = new int[n]; 
+        int[] col = new int[m];
+
+
+        for(int i=0;i<n;i++){
+            for (int j = 0;j<m;j++){
+                if(matrix.get(i).get(j) == 0){
+                    row[i]=1; //mark row and col
+                    col[j]=1;
+                }
+            }
+        }
+        for(int i=0;i<n;i++){
+            for (int j = 0;j<m;j++){
+                if(row[i]==1 || col[j]==1){
+                    matrix.get(i).set(j,0);
+                }
+            }
+        }
+        
+
+        return matrix;
+    }    
     public static ArrayList<ArrayList<Integer>> bruteForce(ArrayList<ArrayList<Integer>> matrix, Integer n, Integer m) {
         // Set -1 for rows and cols that contains 0. Don't mark any 0 as -1:
         for (int i = 0; i < n; i++) {
